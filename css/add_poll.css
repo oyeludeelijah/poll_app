@@ -1,0 +1,135 @@
+:root {
+  --primary-margin-top: 1rem;
+  --secondary-margin-top: 2rem;
+  --primary-margin-bottom: 1rem;
+  --secondary-margin-bottom: 2rem;
+}
+
+/* Global Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+/* Poll Container */
+.poll-container {
+  padding: 1rem 2rem;
+}
+
+/* Header Styles */
+header h1 {
+  text-align: center;
+}
+
+/* Media Section */
+.media-section {
+  margin-top: var(--primary-margin-bottom);
+}
+
+.slider {
+  background-color: hsl(208, 100%, 97%);
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.uploaded-imgs {
+  width: 17rem;
+  border-radius: 2rem;
+}
+
+.uploaded-imgs img {
+  height: 15rem;
+}
+.add-media {
+  background-color: hsl(0, 0%, 86%);
+  padding: 1rem;
+  border-radius: 2rem;
+  width: 15rem;
+
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  cursor: pointer;
+}
+
+.add-media:active {
+  background-color: hsl(0, 0%, 62%);
+}
+
+.add-media img {
+  width: 2rem;
+}
+
+.add-media input {
+  display: none;
+}
+
+#imagePreview {
+  max-width: 100%;
+  border-radius: 2rem;
+  margin-top: 1rem;
+}
+
+/* Question Section */
+.question-section {
+  margin-top: var(--primary-margin-top);
+}
+
+.question-type {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1.7rem;
+  border: 1px solid hsla(0, 0%, 0%, 0.255);
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.question-type:focus {
+  outline: none;
+}
+
+/* Answers Section */
+.answers-section {
+  margin-top: var(--primary-margin-top);
+  background-color: hsl(0, 0%, 86%);
+  padding: 1rem;
+  border-radius: 2rem;
+
+  .answers {
+    margin-top: var(--primary-margin-top);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.answer {
+  border: 1px solid hsla(0, 0%, 0%, 0.255);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: hsl(0, 0%, 62%);
+}
+
+.answer:active {
+  background-color: hsla(0, 0%, 0%, 0.035);
+}
+
+.add_answer {
+  background-color: hsl(0, 0%, 95%);
+  color: hsl(120, 95%, 37%);
+  border: 1px solid hsla(120, 95%, 37%, 0.374);
+}
+
+/* Divider Styles */
+hr {
+  border: 1px solid hsla(0, 0%, 0%, 0.104);
+  margin-top: var(--primary-margin-top);
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="header">Login</h1>
+
+      <form action="" id="form" novalidate>
+        <div class="form-section">
+          <label for="username" class="labels">Username</label>
+          <div class="input-box" id="username-box">
+            <img src="/svg/profile.svg" alt="Username Icon" />
+            <input
+              type="text"
+              placeholder="Type your username"
+              class="username"
+              id="username"
+              required
+            />
+          </div>
+          <p class="error-msg" id="username-errorMsg"></p>
+        </div>
+
+        <div class="form-section">
+          <label for="password" class="labels">Password</label>
+          <div class="input-box" id="password-box">
+            <img src="/svg/password.svg" alt="Password Icon" />
+            <input
+              type="password"
+              placeholder="Type your password"
+              class="password"
+              id="password"
+              maxlength="20"
+              required
+            />
+          </div>
+          <div class="msg">
+            <p class="error-msg" id="password-errorMsg"></p>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="sign-in-btn">Login</button>
+      </form>
+
+      <div class="sign-up">
+        <p>Or Sign Up using</p>
+        <a href="/html/signup.html">SIGN UP</a>
+      </div>
+    </div>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

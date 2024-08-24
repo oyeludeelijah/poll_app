@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Poll</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/add_poll.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="/js/add_poll.js"></script>
+  </head>
+  <body>
+    <section class="poll-container">
+      <header>
+        <h1 class="poll-question">
+          Is it worth to travel to these beautiful mountains?
+        </h1>
+      </header>
+
+      <hr />
+
+      <section class="media-section">
+        <h3>Media</h3>
+        <div class="slider">
+          <div class="uploaded-imgs">
+            <img
+              id="imagePreview"
+              src=""
+              alt="Image Preview"
+              style="display: none; max-width: 100%; border-radius: 2rem"
+            />
+          </div>
+
+          <div class="add-media" id="addMedia">
+            <input
+              type="file"
+              id="fileInput"
+              title="image-input"
+              accept="image/*"
+            />
+            <img src="/svg/picture.svg" alt="" />
+            <p>+ Add Media</p>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="question-section">
+        <h3>Question Topic</h3>
+        <select class="question-type" id="question_type" title="appliances">
+          <option value="">Photography</option>
+          <option value="landscape">Landscape</option>
+          <option value="adventure">Adventure</option>
+          <option value="nature">Nature</option>
+          <option value="travel">Travel</option>
+        </select>
+      </section>
+
+      <hr />
+
+      <section class="answers-section">
+        <h3>Answers</h3>
+        <div class="answers">
+          <div class="answer">Yes, sure</div>
+          <div class="answer">Not sure</div>
+          <div class="answer add_answer">+ Add option</div>
+        </div>
+      </section>
+
+      <nav class="nav-bar">
+        <div class="nav-items nav-active">
+          <img src="/svg/home.svg" alt="" />
+        </div>
+        <div class="nav-items"><img src="/svg/menu.svg" alt="" /></div>
+        <div class="nav-items"><img src="/svg/profile-2.svg" alt="" /></div>
+      </nav>
+    </section>
+  </body>
+</html>

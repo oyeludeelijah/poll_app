@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign up page</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="/js/signup.js"></script>
+  </head>
+  <body>
+    <div class="sign-up-container" id="sign-up-container">
+      <h3 class="header">Signup</h3>
+
+      <form id="form">
+        <!-- first-name -->
+        <div class="grid-item-1">
+          <label for="first-name" class="labels">First name</label>
+          <div class="input-box first-name_cont_border">
+            <img src="/svg/id-badge.svg" alt="" />
+            <input
+              type="text"
+              placeholder="Enter first name"
+              id="first_name-input"
+            />
+          </div>
+          <br />
+          <div class="error-msg" id="first_name-errorMsg"></div>
+        </div>
+
+        <!-- last-name -->
+        <div class="grid-item-2">
+          <label for="last-name" class="labels">Last name</label>
+          <div class="input-box last-name_cont_border">
+            <img src="/svg/id-badge.svg" alt="" />
+            <input
+              type="text"
+              placeholder="Enter last name"
+              id="last_name-input"
+            />
+          </div>
+          <br />
+          <div class="error-msg" id="last_name-errorMsg"></div>
+        </div>
+
+        <!-- email -->
+        <div class="grid-item-3">
+          <label for="email" class="labels">Email</label>
+          <div class="input-box email_cont_border">
+            <img src="/svg/email.svg" alt="" />
+            <input type="text" placeholder="Enter Email" id="email-input" />
+          </div>
+          <br />
+          <div class="error-msg" id="email-errorMsg"></div>
+        </div>
+
+        <!-- age -->
+        <div class="grid-item-4">
+          <label for="age" class="labels">Age</label>
+          <div class="input-box age_cont_border">
+            <img src="/svg/age.svg" alt="" />
+            <input type="number" placeholder="Enter Age" id="age-input" />
+          </div>
+          <br />
+          <div class="error-msg" id="age-errorMsg"></div>
+        </div>
+
+        <!-- password -->
+        <div class="grid-item-5">
+          <label for="password" class="labels">Password</label>
+          <div class="input-box password_cont_border">
+            <img src="/svg/password.svg" alt="" />
+            <input
+              type="text"
+              pattern="\d*"
+              maxlength="20"
+              placeholder="Enter Password"
+              id="password-input"
+            />
+          </div>
+          <br />
+          <div class="error-msg" id="password-errorMsg"></div>
+        </div>
+
+        <!-- submit-btn -->
+        <button type="submit" class="sign-up-btn grid-item-6" id="sign-up-btn">
+          Register now
+        </button>
+      </form>
+
+      <div class="login">
+        <p>Already have an account?</p>
+        <a href="/html/login.html">LOGIN</a>
+      </div>
+    </div>
+
+    <div class="success-container hidden" id="success-container">
+      <img
+        src="/gif/wired-outline-37-approve-checked-simple.gif"
+        alt="Animated icon description"
+      />
+    </div>
+  </body>
+</html>
