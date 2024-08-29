@@ -27,24 +27,26 @@ body {
   background-color: #000;
   width: 100%;
   height: 5rem;
-  padding: 3rem;
+  padding: 1rem;
+  padding-top: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 1000; /* Ensure the nav bar stays on top */
 }
 
 .nav-bar img {
-  width: 3rem;
+  width: 2.5rem;
   cursor: pointer;
 }
 
 .nav-active {
   background-color: #9e9e9e;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;

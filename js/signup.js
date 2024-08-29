@@ -24,8 +24,12 @@ const successContainer = document.getElementById("success-container");
 let formDataArray = [];
 
 function successMessage() {
-  signUpContainer.style.filter = "blur(4px)";
+  signUpContainer.style.filter = "blur(3px)";
   successContainer.classList.remove("hidden");
+
+  setTimeout(() => {
+    goToAnotherFile();
+  }, 3000);
 }
 
 function isEmailTaken(email) {
@@ -44,7 +48,6 @@ function validateField(input, errorMsg, border, validationFn) {
     errorMsg.textContent = "";
     border.style.borderColor = "rgb(0, 255, 0)"; // Green border for valid input
   }
-  // console.log(`Validating ${input.id}: ${isValid ? "Valid" : "Invalid"}`);
   return isValid;
 }
 
@@ -61,7 +64,7 @@ function validateEmail() {
     return false;
   }
   emailErrorMsg.textContent = "";
-  emailBorder.style.borderColor = "rgb(0, 255, 0)"; // Green border for valid email
+  emailBorder.style.borderColor = "rgb(0, 255, 0)";
   return true;
 }
 
@@ -72,20 +75,39 @@ function validateAge(age) {
     return false;
   }
   ageErrorMsg.textContent = "";
-  ageBorder.style.borderColor = "rgb(0, 255, 0)"; // Green border for valid age
+  ageBorder.style.borderColor = "rgb(0, 255, 0)";
   return true;
 }
 
 function validatePassword(password) {
-  if (password.length < 8) {
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasSymbols = /[!@#$%^&*]/.test(password);
+  const isValidLength = password.length >= 5;
+
+  if (!isValidLength) {
     passwordErrorMsg.textContent =
-      "Password must be at least 8 characters long";
-    passwordBorder.style.borderColor = "rgb(255, 0, 0)";
-    return false;
+      "Password must be at least 5 characters long";
+  } else if (!hasUpperCase) {
+    passwordErrorMsg.textContent =
+      "Password must include at least one uppercase letter";
+  } else if (!hasLowerCase) {
+    passwordErrorMsg.textContent =
+      "Password must include at least one lowercase letter";
+  } else if (!hasNumbers) {
+    passwordErrorMsg.textContent = "Password must include at least one number";
+  } else if (!hasSymbols) {
+    passwordErrorMsg.textContent =
+      "Password must include at least one special character";
+  } else {
+    passwordErrorMsg.textContent = "";
+    passwordBorder.style.borderColor = "rgb(0, 255, 0)";
+    return true;
   }
-  passwordErrorMsg.textContent = "";
-  passwordBorder.style.borderColor = "rgb(0, 255, 0)"; // Green border for valid password
-  return true;
+
+  passwordBorder.style.borderColor = "rgb(255, 0, 0)";
+  return false;
 }
 
 // Add input event listeners for real-time validation
@@ -111,9 +133,9 @@ inputPassword.addEventListener("input", () =>
 function goToAnotherFile() {
   window.location.href = "/html/login.html";
 }
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  // console.log("Form submitted");
 
   let isValid = true;
 
@@ -135,17 +157,11 @@ form.addEventListener("submit", function (e) {
       validatePassword
     ) && isValid;
 
-  // console.log(`Form is ${isValid ? "valid" : "invalid"}`);
-
   if (isValid) {
     if (isEmailTaken(inputEmail.value)) {
       emailErrorMsg.textContent = "This email is already registered";
       emailBorder.style.borderColor = "rgb(255, 0, 0)";
-      // console.log("Registration failed: Email already exists");
     } else {
-      // console.log("Form is valid, submitting...");
-
-      // Collect form data and store in array
       const formData = {
         firstName: inputFirstName.value,
         lastName: inputLastName.value,
@@ -154,23 +170,10 @@ form.addEventListener("submit", function (e) {
         password: inputPassword.value,
       };
 
-      // Push the data to the formDataArray
       formDataArray.push(formData);
-      console.log("Form data stored in array:", formDataArray);
-
-      // Store the updated formDataArray in localStorage
       localStorage.setItem("userData", JSON.stringify(formDataArray));
 
-      // Check if the data is correctly stored in localStorage
-      console.log(
-        "Data stored in localStorage:",
-        localStorage.getItem("userData")
-      );
-
-      // Clear form fields after successful submission
       form.reset();
-
-      // Reset border colors
       [
         firstNameBorder,
         lastNameBorder,
@@ -181,8 +184,8 @@ form.addEventListener("submit", function (e) {
         border.style.borderColor = "";
       });
 
-      console.log("Registration successful!");
-      goToAnotherFile();
+      // console.log("Registration successful!");
+      successMessage();
     }
   }
 });
