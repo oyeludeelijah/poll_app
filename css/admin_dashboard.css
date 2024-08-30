@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #0d0c22;
+  --light-gray: hsl(0, 0%, 86%);
+  --dark-gray: hsl(0, 0%, 62%);
+  --primary-color: #007bff;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--black);
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  margin-left: 250px; /* Adjust for sidebar width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-top: 20px;
+  background-color: var(--light-gray);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table,
+th,
+td {
+  border: 1px solid hsla(0, 0%, 0%, 0.255);
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.add-poll-button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 100%; /* Full width for mobile */
+}
+
+.add-poll-button:hover {
+  background-color: hsl(208, 100%, 30%);
+}
+
+#logout {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 10px; /* Reduce padding for mobile */
+  }
+
+  .section {
+    padding: 10px; /* Reduce padding for mobile */
+  }
+
+  .add-poll-button {
+    width: 100%; /* Full width for mobile */
+  }
+
+  table {
+    font-size: 0.9rem; /* Slightly smaller font for mobile */
+  }
+
+  th,
+  td {
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+}

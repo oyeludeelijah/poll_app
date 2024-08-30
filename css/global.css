@@ -53,3 +53,22 @@ body {
   border-radius: 100%;
   cursor: pointer;
 }
+
+/* 
+:root {
+   ... other variables ... 
+  --nav-height: 5rem;
+   Adjust this value based on your navigation bar's actual height 
+}
+
+body {
+  ... other styles ... 
+  padding-bottom: var(--nav-height); 
+  Add padding to the bottom of the body 
+}
+
+.poll-container {
+  ... other styles ... 
+  padding-bottom: var(--nav-height);
+   Add padding to the bottom of the container 
+}  */
