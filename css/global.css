@@ -54,8 +54,7 @@ body {
   cursor: pointer;
 }
 
-/* 
-:root {
+/* :root {
    ... other variables ... 
   --nav-height: 5rem;
    Adjust this value based on your navigation bar's actual height 

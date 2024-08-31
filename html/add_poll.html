@@ -11,43 +11,31 @@
     />
     <style>
       :root {
-        --primary-margin-top: 1rem;
-        --secondary-margin-top: 2rem;
-        --primary-margin-bottom: 1rem;
-        --secondary-margin-bottom: 2rem;
-        --nav-height: 5rem; /* Adjust this value based on your navigation bar's actual height */
+        --primary-margin: 1rem;
+        --secondary-margin: 2rem;
+        --nav-height: 5rem;
       }
 
-      /* Global Styles */
       body {
         font-family: "Poppins", sans-serif;
         font-size: 1.5rem;
         margin: 0;
-        padding: 0;
-        padding-bottom: var(
-          --nav-height
-        ); /* Add padding to the bottom of the body */
+        padding: 0 0 var(--nav-height);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      /* Poll Container */
-      .poll-container {
-        padding: 1rem 2rem;
-        padding-bottom: var(
-          --nav-height
-        ); /* Add padding to the bottom of the container */
+      .container {
+        padding: 1rem 2rem var(--nav-height);
       }
 
-      /* Header Styles */
       header h1 {
         text-align: center;
       }
 
-      /* Media Section */
       .media-section {
-        margin-top: var(--primary-margin-bottom);
+        margin-top: var(--primary-margin);
       }
 
       .slider {
@@ -64,11 +52,32 @@
         gap: 1rem;
       }
 
+      .uploaded-img-container {
+        position: relative;
+        width: 15rem;
+        height: 15rem;
+      }
+
       .uploaded-img {
         width: 15rem;
         height: 15rem;
         border-radius: 2rem;
         object-fit: cover;
+      }
+
+      .remove-img {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-weight: bold;
       }
 
       .add-media {
@@ -99,9 +108,8 @@
         display: none;
       }
 
-      /* Question Section */
       .question-section {
-        margin-top: var(--primary-margin-top);
+        margin-top: var(--primary-margin);
       }
 
       .question-type {
@@ -117,16 +125,16 @@
         outline: none;
       }
 
-      /* Answers Section */
       .answers-section {
-        margin-top: var(--primary-margin-top);
+        margin-top: var(--primary-margin);
         background-color: hsl(0, 0%, 86%);
         padding: 1rem;
         border-radius: 2rem;
+        margin-bottom: 3rem;
       }
 
       .answers {
-        margin-top: var(--primary-margin-top);
+        margin-top: var(--primary-margin);
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -134,12 +142,12 @@
 
       .answer {
         border: 1px solid hsla(0, 0%, 0%, 0.255);
-        border-radius: 0.5rem;
+        border-radius: 2rem;
         cursor: pointer;
         transition: all 0.3s;
         padding: 2rem;
-        border-radius: 2rem;
-        background-color: hsl(0, 0%, 62%);
+        background-color: hsl(0, 0%, 76%);
+        color: #000;
       }
 
       .answer:active {
@@ -152,15 +160,44 @@
         border: 1px solid hsla(120, 95%, 37%, 0.374);
       }
 
-      /* Divider Styles */
       hr {
         border: 1px solid hsla(0, 0%, 0%, 0.104);
-        margin-top: var(--primary-margin-top);
+        margin-top: var(--primary-margin);
+      }
+
+      .submit-btn {
+        color: #fff;
+        border-radius: 2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        padding: 2rem;
+        background-color: #000;
+        text-align: center;
+      }
+
+      .submit-btn:hover {
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      .submit-btn:active {
+        box-shadow: 0 0 6px rgb(0, 0, 0);
+      }
+
+      .error-message {
+        color: red;
+        margin-top: 1rem;
+        font-size: 1rem;
+      }
+
+      .success-message {
+        color: green;
+        margin-top: 1rem;
+        font-size: 1rem;
       }
     </style>
   </head>
   <body>
-    <section class="poll-container">
+    <section class="container">
       <header>
         <h1 class="poll-question">Add new poll</h1>
       </header>
@@ -205,6 +242,10 @@
           <div class="answer add_answer" id="addAnswer">+ Add option</div>
         </div>
       </section>
+
+      <div class="submit-btn" id="submit-btn">Submit</div>
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
     </section>
     <nav class="nav-bar">
       <div class="nav-items nav-active">
@@ -220,12 +261,19 @@
         <img src="/svg/password-2.svg" alt="Menu" />
       </div>
     </nav>
+
     <script>
       const addMedia = document.getElementById("addMedia");
       const fileInput = document.getElementById("fileInput");
       const uploadedImgs = document.getElementById("uploadedImgs");
       const addAnswer = document.getElementById("addAnswer");
       const answersContainer = document.getElementById("answersContainer");
+      const submitBtn = document.getElementById("submit-btn");
+      const questionInput = document.getElementById("question_type");
+      const errorMessage = document.getElementById("errorMessage");
+      const successMessage = document.getElementById("successMessage");
+
+      let uploadedImages = [];
 
       addMedia.addEventListener("click", function () {
         fileInput.click();
@@ -238,17 +286,34 @@
           if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
+              const imgContainer = document.createElement("div");
+              imgContainer.classList.add("uploaded-img-container");
+
               const img = document.createElement("img");
               img.src = e.target.result;
               img.classList.add("uploaded-img");
-              uploadedImgs.appendChild(img);
+
+              const removeBtn = document.createElement("div");
+              removeBtn.classList.add("remove-img");
+              removeBtn.innerHTML = "×";
+              removeBtn.addEventListener("click", function () {
+                uploadedImgs.removeChild(imgContainer);
+                uploadedImages = uploadedImages.filter(
+                  (image) => image !== e.target.result
+                );
+              });
+
+              imgContainer.appendChild(img);
+              imgContainer.appendChild(removeBtn);
+              uploadedImgs.appendChild(imgContainer);
+
+              uploadedImages.push(e.target.result);
             };
             reader.readAsDataURL(file);
           }
         }
       });
 
-      // New functionality to add answer options
       addAnswer.addEventListener("click", function () {
         const newAnswer = document.createElement("div");
         newAnswer.classList.add("answer");
@@ -256,16 +321,78 @@
         newAnswer.textContent = "";
         answersContainer.insertBefore(newAnswer, addAnswer);
 
-        // Focus on the new answer option for immediate editing
         newAnswer.focus();
 
-        // Add event listener to save changes when user finishes editing
         newAnswer.addEventListener("blur", function () {
           if (newAnswer.textContent.trim() === "") {
             answersContainer.removeChild(newAnswer);
           }
         });
       });
+
+      submitBtn.addEventListener("click", function () {
+        const topic = questionInput.value.trim();
+        const answerOptions = Array.from(answersContainer.children)
+          .filter((child) => child.id !== "addAnswer")
+          .map((answer) => answer.textContent.trim());
+
+        if (topic === "") {
+          showMessage("Please enter a question topic.", "error");
+          return;
+        }
+
+        if (uploadedImages.length === 0) {
+          showMessage("Please upload at least one image.", "error");
+          return;
+        }
+
+        if (answerOptions.length < 2) {
+          showMessage("Please add at least two answer options.", "error");
+          return;
+        }
+
+        if (answerOptions.some((option) => option === "")) {
+          showMessage("Please fill in all answer options.", "error");
+          return;
+        }
+
+        const pollData = {
+          topic: topic,
+          images: uploadedImages,
+          answers: answerOptions,
+        };
+
+        try {
+          localStorage.setItem("pollData", JSON.stringify(pollData));
+          showMessage("Poll data saved successfully!", "success");
+
+          // Reset the form
+          questionInput.value = "";
+          uploadedImgs.innerHTML = "";
+          uploadedImages = [];
+          Array.from(answersContainer.children)
+            .filter((child) => child.id !== "addAnswer")
+            .forEach((answer) => answersContainer.removeChild(answer));
+        } catch (error) {
+          showMessage("Error saving poll data: " + error.message, "error");
+        }
+      });
+
+      function showMessage(message, type) {
+        const messageElement = type === "error" ? errorMessage : successMessage;
+        const otherMessageElement =
+          type === "error" ? successMessage : errorMessage;
+
+        messageElement.textContent = message;
+        messageElement.style.display = "block";
+        otherMessageElement.style.display = "none";
+
+        // Clear the message after 5 seconds
+        setTimeout(() => {
+          messageElement.textContent = "";
+          messageElement.style.display = "none";
+        }, 5000);
+      }
     </script>
   </body>
 </html>
