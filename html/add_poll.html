@@ -373,6 +373,11 @@
           Array.from(answersContainer.children)
             .filter((child) => child.id !== "addAnswer")
             .forEach((answer) => answersContainer.removeChild(answer));
+
+          // Navigate to the admin dashboard after a short delay
+          setTimeout(() => {
+            window.location.href = "/html/admin_dashboard.html";
+          }, 1000); // 1 second delay to allow the success message to be seen
         } catch (error) {
           showMessage("Error saving poll data: " + error.message, "error");
         }

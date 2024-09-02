@@ -71,3 +71,18 @@ body {
   padding-bottom: var(--nav-height);
    Add padding to the bottom of the container 
 }  */
+
+@media screen and (min-width: 523px) {
+  .container {
+    width: 52.3rem;
+    margin: 0 auto;
+  }
+
+  .nav-bar {
+    width: 52.3rem; /* Match the width of the container */
+    left: 50%; /* Position the left edge */
+    transform: translateX(-50%); /* Center the nav bar */
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+}

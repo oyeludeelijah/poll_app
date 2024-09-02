@@ -1,33 +1,29 @@
 :root {
-  --primary-margin-top: 1rem;
-  --secondary-margin-top: 2rem;
-  --primary-margin-bottom: 1rem;
-  --secondary-margin-bottom: 2rem;
+  --primary-margin: 1rem;
+  --secondary-margin: 2rem;
+  --nav-height: 5rem;
 }
 
-/* Global Styles */
 body {
+  font-family: "Poppins", sans-serif;
   font-size: 1.5rem;
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--nav-height);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Poll Container */
-.poll-container {
-  padding: 1rem 2rem;
+.container {
+  padding: 1rem 2rem var(--nav-height);
 }
 
-/* Header Styles */
 header h1 {
   text-align: center;
 }
 
-/* Media Section */
 .media-section {
-  margin-top: var(--primary-margin-bottom);
+  margin-top: var(--primary-margin);
 }
 
 .slider {
@@ -36,27 +32,56 @@ header h1 {
   display: flex;
   gap: 2rem;
   border-radius: 2rem;
+  overflow-x: auto;
 }
 
 .uploaded-imgs {
-  width: 17rem;
-  border-radius: 2rem;
+  display: flex;
+  gap: 1rem;
 }
 
-.uploaded-imgs img {
+.uploaded-img-container {
+  position: relative;
+  width: 15rem;
   height: 15rem;
 }
+
+.uploaded-img {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 2rem;
+  object-fit: cover;
+}
+
+.remove-img {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .add-media {
   background-color: hsl(0, 0%, 86%);
   padding: 1rem;
   border-radius: 2rem;
   width: 15rem;
-
+  height: 15rem;
   font-size: 1.7rem;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .add-media:active {
@@ -71,15 +96,8 @@ header h1 {
   display: none;
 }
 
-#imagePreview {
-  max-width: 100%;
-  border-radius: 2rem;
-  margin-top: 1rem;
-}
-
-/* Question Section */
 .question-section {
-  margin-top: var(--primary-margin-top);
+  margin-top: var(--primary-margin);
 }
 
 .question-type {
@@ -95,30 +113,29 @@ header h1 {
   outline: none;
 }
 
-/* Answers Section */
 .answers-section {
-  margin-top: var(--primary-margin-top);
+  margin-top: var(--primary-margin);
   background-color: hsl(0, 0%, 86%);
   padding: 1rem;
   border-radius: 2rem;
+  margin-bottom: 3rem;
+}
 
-  .answers {
-    margin-top: var(--primary-margin-top);
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+.answers {
+  margin-top: var(--primary-margin);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .answer {
   border: 1px solid hsla(0, 0%, 0%, 0.255);
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   cursor: pointer;
   transition: all 0.3s;
   padding: 2rem;
-  border-radius: 2rem;
-  background-color: hsl(0, 0%, 62%);
+  background-color: hsl(0, 0%, 76%);
+  color: #000;
 }
 
 .answer:active {
@@ -131,8 +148,37 @@ header h1 {
   border: 1px solid hsla(120, 95%, 37%, 0.374);
 }
 
-/* Divider Styles */
 hr {
   border: 1px solid hsla(0, 0%, 0%, 0.104);
-  margin-top: var(--primary-margin-top);
+  margin-top: var(--primary-margin);
+}
+
+.submit-btn {
+  color: #fff;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 2rem;
+  background-color: #000;
+  text-align: center;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.submit-btn:active {
+  box-shadow: 0 0 6px rgb(0, 0, 0);
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.success-message {
+  color: green;
+  margin-top: 1rem;
+  font-size: 1rem;
 }

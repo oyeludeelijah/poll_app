@@ -10,7 +10,153 @@
       href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
       rel="stylesheet"
     />
-    <script defer src="/js/login.js"></script>
+    <!-- <script defer src="/js/login.js"></script> -->
+    <style>
+      body {
+        padding: 0 3rem;
+      }
+
+      .container {
+        margin: 0 auto;
+        margin-top: 50px;
+        height: 87vh;
+        max-width: 50rem;
+        padding: 3rem;
+        border-radius: 2rem;
+        transition: all 0.1s;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .header {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .general-error-msg {
+        text-align: center;
+      }
+
+      .labels {
+        font-size: 1.3rem;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      input {
+        width: 100%;
+        font-size: 1.5rem;
+        display: block;
+        border: none;
+        padding-left: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      input:focus {
+        outline: none;
+        padding-bottom: 1rem;
+        border-radius: 0.3rem;
+      }
+
+      .input-box {
+        border-bottom: 1px solid #000;
+        padding-bottom: 0.5rem;
+
+        display: flex;
+      }
+
+      .input-box img {
+        width: 2rem;
+      }
+      /* ///////////////////////////////////////////////// */
+
+      a {
+        text-decoration: none;
+        color: #000;
+        transition: all 0.3s;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .header {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      form {
+        margin-bottom: 5rem;
+      }
+
+      .form-section {
+        margin-bottom: 2rem;
+      }
+
+      .error-msg,
+      .msg {
+        color: red;
+        font-size: 1.1rem;
+        margin-top: 0.2rem;
+      }
+
+      .msg {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* .forgot-password {
+} */
+
+      .sign-in-btn {
+        width: 100%;
+        padding: 1.2rem 0;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .sign-in-btn:hover {
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      .sign-in-btn:active {
+        box-shadow: 0 0 6px rgb(0, 0, 0);
+      }
+
+      .sign-up {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        font-size: 1.1rem;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .sign-up a {
+        font-weight: 500;
+      }
+
+      @media screen and (max-width: 440px) {
+        body {
+          padding: 0;
+        }
+
+        .container {
+          width: 100vw;
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -65,5 +211,76 @@
         <a href="/html/signup.html">SIGN UP</a>
       </div>
     </div>
+    <script>
+      const form = document.getElementById("form");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const emailErrorMsg = document.getElementById("email-errorMsg");
+      const passwordErrorMsg = document.getElementById("password-errorMsg");
+      const generalErrorMsg = document.getElementById("general-error-msg");
+      const emailBox = document.getElementById("email-box");
+      const passwordBox = document.getElementById("password-box");
+
+      let storedData = JSON.parse(localStorage.getItem("userData"));
+
+      console.log(storedData);
+      function validateField(input, errorMsg, border) {
+        let isValid = true;
+        if (!input.value) {
+          errorMsg.textContent = "This field is required";
+          border.style.borderColor = "rgb(255, 0, 0)";
+          isValid = false;
+        } else {
+          errorMsg.textContent = "";
+          border.style.borderColor = "rgb(0, 255, 0)";
+        }
+        console.log(`Validating ${input.id}: ${isValid ? "Valid" : "Invalid"}`);
+        return isValid;
+      }
+
+      email.addEventListener("input", () =>
+        validateField(email, emailErrorMsg, emailBox)
+      );
+      password.addEventListener("input", () =>
+        validateField(password, passwordErrorMsg, passwordBox)
+      );
+
+      function goToAnotherFile() {
+        window.location.href = "/html/voting_page.html";
+      }
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        isValid = validateField(email, emailErrorMsg, emailBox) && isValid;
+        isValid =
+          validateField(password, passwordErrorMsg, passwordBox) && isValid;
+
+        if (isValid) {
+          if (storedData) {
+            const user = storedData.find(
+              (user) =>
+                user.email === email.value && user.password === password.value
+            );
+
+            if (user) {
+              console.log("Login successful!");
+              // Store the current user's email in localStorage
+              localStorage.setItem("currentUser", user.email);
+
+              // Redirect to the home page
+              window.location.href = "/html/home_page.html";
+            } else {
+              generalErrorMsg.textContent = "Invalid email or password";
+              emailBox.style.borderColor = "rgb(255, 0, 0)";
+              passwordBox.style.borderColor = "rgb(255, 0, 0)";
+            }
+          } else {
+            emailErrorMsg.textContent = "No users are registered";
+          }
+        }
+      });
+    </script>
   </body>
 </html>

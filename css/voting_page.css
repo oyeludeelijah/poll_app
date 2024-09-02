@@ -3,15 +3,16 @@ body {
   font-size: 1.5rem;
   margin: 0;
   padding: 0;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 /* Section Styles */
 .container {
-  height: 100vh;
-  margin: 0 auto;
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 7rem;
 }
 
 /* Image Slider Styles */
@@ -163,4 +164,10 @@ body {
 
   margin-top: 3rem;
   text-align: center;
+}
+
+@media screen and (min-width: 523px) {
+  .about-poll h2 {
+    text-align: left;
+  }
 }
